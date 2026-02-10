@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chúc Mừng Năm Mới 2026</title>
+
+<style>
+:root {
+    --red-dark: #7f1d1d;
+    --red-main: #b91c1c;
+    --gold: #fde68a;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: radial-gradient(circle at top, var(--red-main), var(--red-dark));
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+/* ===== CONTENT ===== */
+.container {
+    text-align: center;
+    padding: 20px;
+    z-index: 2;
+}
+
+.title {
+    font-size: clamp(36px, 8vw, 64px);
+    font-weight: 700;
+    color: var(--gold);
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    animation: titleIn 1.5s ease-out forwards;
+}
+
+.subtitle {
+    font-size: clamp(20px, 5vw, 36px);
+    margin-top: 10px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease-out forwards;
+    animation-delay: 0.6s;
+}
+
+.desc {
+    font-size: clamp(16px, 4vw, 22px);
+    margin-top: 18px;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeUp 1.2s ease-out forwards;
+    animation-delay: 1.2s;
+}
+
+/* ===== ANIMATION TEXT ===== */
+@keyframes titleIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== FLOWERS ===== */
+.flower {
+    position: absolute;
+    top: -40px;
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* Mobile tối ưu */
+@media (max-width: 600px) {
+    .container {
+        padding: 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="title">🎉 Chúc Mừng Xuân Bính Ngọ 🎉</div>
+    <div class="subtitle">2026</div>
+    <div class="desc">
+        Chúc em luôn yêu anh<br />
+        Tết anh lì xì 20k
+    </div>
+</div>
+
+<script>
+const flowers = ["🌸", "🌼", "🌺"];
+const flowerElements = [];
+const maxFlowers = window.innerWidth < 600 ? 15 : 30;
+
+function createFlower() {
+    if (flowerElements.length >= maxFlowers) return;
+
+    const el = document.createElement("div");
+    el.className = "flower";
+    el.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+
+    const size = 16 + Math.random() * 24;
+    el.style.fontSize = size + "px";
+
+    const x = Math.random() * window.innerWidth;
+    const speed = 0.3 + Math.random() * 0.6;
+    const rotateSpeed = (Math.random() - 0.5) * 0.5;
+
+    document.body.appendChild(el);
+
+    flowerElements.push({
+        el,
+        x,
+        y: -50,
+        speed,
+        rotate: 0,
+        rotateSpeed
+    });
+}
+
+function animate() {
+    flowerElements.forEach((f, index) => {
+        f.y += f.speed;
+        f.rotate += f.rotateSpeed;
+
+        f.el.style.transform =
+            `translate(${f.x}px, ${f.y}px) rotate(${f.rotate}deg)`;
+
+        if (f.y > window.innerHeight + 50) {
+            f.el.remove();
+            flowerElements.splice(index, 1);
+        }
+    });
+
+    requestAnimationFrame(animate);
+}
+
+// Tạo hoa đều, không dồn
+setInterval(createFlower, 400);
+animate();
+</script>
+
+</body>
+</html>
