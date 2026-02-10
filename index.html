@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Chúc Mừng Năm Mới 2026</title>
+<title>Chúc Mừng Xuân Bính Ngọ 2026</title>
 
 <style>
 :root {
-    --red-dark: #7f1d1d;
-    --red-main: #b91c1c;
-    --gold: #fde68a;
+    --red-dark: #6a040f;
+    --red-main: #9d0208;
+    --red-light: #d00000;
+    --gold: #ffdd99;
 }
 
 * {
@@ -21,12 +22,48 @@
 
 body {
     height: 100vh;
-    background: radial-gradient(circle at top, var(--red-main), var(--red-dark));
+    background:
+        radial-gradient(circle at top, #b11226, var(--red-dark)),
+        linear-gradient(to bottom, var(--red-main), var(--red-dark));
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #fff;
+    position: relative;
+}
+
+/* ===== BACKGROUND DECOR ===== */
+.bg-light {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,215,150,0.25), transparent 70%);
+    top: -200px;
+    right: -200px;
+}
+
+.bg-light.left {
+    top: auto;
+    bottom: -200px;
+    left: -200px;
+}
+
+/* ===== LANTERNS ===== */
+.lantern {
+    position: absolute;
+    top: -20px;
+    font-size: 48px;
+    animation: swing 4s ease-in-out infinite;
+}
+
+.lantern.left { left: 15%; animation-delay: 0s; }
+.lantern.right { right: 15%; animation-delay: 1.5s; }
+
+@keyframes swing {
+    0% { transform: rotate(3deg); }
+    50% { transform: rotate(-3deg); }
+    100% { transform: rotate(3deg); }
 }
 
 /* ===== CONTENT ===== */
@@ -37,17 +74,19 @@ body {
 }
 
 .title {
-    font-size: clamp(36px, 8vw, 64px);
-    font-weight: 700;
+    font-size: clamp(36px, 8vw, 68px);
+    font-weight: 800;
     color: var(--gold);
+    text-shadow: 0 0 15px rgba(255,215,150,0.6);
     opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    animation: titleIn 1.5s ease-out forwards;
+    transform: translateY(30px) scale(0.95);
+    animation: titleIn 1.6s ease-out forwards;
 }
 
 .subtitle {
-    font-size: clamp(20px, 5vw, 36px);
+    font-size: clamp(22px, 5vw, 38px);
     margin-top: 10px;
+    color: #fff;
     opacity: 0;
     animation: fadeUp 1.2s ease-out forwards;
     animation-delay: 0.6s;
@@ -56,13 +95,13 @@ body {
 .desc {
     font-size: clamp(16px, 4vw, 22px);
     margin-top: 18px;
-    line-height: 1.6;
+    line-height: 1.7;
     opacity: 0;
     animation: fadeUp 1.2s ease-out forwards;
     animation-delay: 1.2s;
 }
 
-/* ===== ANIMATION TEXT ===== */
+/* ===== TEXT ANIMATION ===== */
 @keyframes titleIn {
     to {
         opacity: 1;
@@ -71,6 +110,9 @@ body {
 }
 
 @keyframes fadeUp {
+    from {
+        transform: translateY(15px);
+    }
     to {
         opacity: 1;
         transform: translateY(0);
@@ -85,10 +127,10 @@ body {
     will-change: transform;
 }
 
-/* Mobile tối ưu */
+/* Mobile */
 @media (max-width: 600px) {
-    .container {
-        padding: 12px;
+    .lantern {
+        font-size: 36px;
     }
 }
 </style>
@@ -96,19 +138,25 @@ body {
 
 <body>
 
+<div class="bg-light"></div>
+<div class="bg-light left"></div>
+
+<div class="lantern left">🏮</div>
+<div class="lantern right">🏮</div>
+
 <div class="container">
     <div class="title">🎉 Chúc Mừng Xuân Bính Ngọ 🎉</div>
-    <div class="subtitle">2026</div>
+    <div class="subtitle">Năm 2026</div>
     <div class="desc">
-        Chúc em luôn yêu anh<br />
-        Tết anh lì xì 20k
+        Chúc em luôn yêu anh 💖<br />
+        Tết anh lì xì 10k 😄
     </div>
 </div>
 
 <script>
 const flowers = ["🌸", "🌼", "🌺"];
 const flowerElements = [];
-const maxFlowers = window.innerWidth < 600 ? 15 : 30;
+const maxFlowers = window.innerWidth < 600 ? 12 : 24;
 
 function createFlower() {
     if (flowerElements.length >= maxFlowers) return;
@@ -117,12 +165,12 @@ function createFlower() {
     el.className = "flower";
     el.textContent = flowers[Math.floor(Math.random() * flowers.length)];
 
-    const size = 16 + Math.random() * 24;
+    const size = 18 + Math.random() * 22;
     el.style.fontSize = size + "px";
 
     const x = Math.random() * window.innerWidth;
-    const speed = 0.3 + Math.random() * 0.6;
-    const rotateSpeed = (Math.random() - 0.5) * 0.5;
+    const speed = 0.4 + Math.random() * 0.6;
+    const rotateSpeed = (Math.random() - 0.5) * 0.4;
 
     document.body.appendChild(el);
 
@@ -137,24 +185,23 @@ function createFlower() {
 }
 
 function animate() {
-    flowerElements.forEach((f, index) => {
+    for (let i = flowerElements.length - 1; i >= 0; i--) {
+        const f = flowerElements[i];
         f.y += f.speed;
         f.rotate += f.rotateSpeed;
 
         f.el.style.transform =
             `translate(${f.x}px, ${f.y}px) rotate(${f.rotate}deg)`;
 
-        if (f.y > window.innerHeight + 50) {
+        if (f.y > window.innerHeight + 60) {
             f.el.remove();
-            flowerElements.splice(index, 1);
+            flowerElements.splice(i, 1);
         }
-    });
-
+    }
     requestAnimationFrame(animate);
 }
 
-// Tạo hoa đều, không dồn
-setInterval(createFlower, 400);
+setInterval(createFlower, 450);
 animate();
 </script>
 
